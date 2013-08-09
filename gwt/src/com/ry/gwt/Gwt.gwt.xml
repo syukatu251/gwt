@@ -22,10 +22,6 @@
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='com.ry.gwt.client.Gwt'/>
-  
-  <replace-with class="com.ry.gwt.client.ClientFactoryImpl">
-    <when-type-is class="com.ry.gwt.client.ClientFactory"/>
-  </replace-with>
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>

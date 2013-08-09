@@ -10,18 +10,18 @@ import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.event.shared.SimpleEventBus;
 
 public class Gwt implements EntryPoint {
 	private Place defaultPlace = new HelloPlace("World!");
     private SimplePanel appWidget = new SimplePanel();
 	@Override
 	public void onModuleLoad() {
-		ClientFactory clientFactory = GWT.create(ClientFactory.class);
-        EventBus eventBus = clientFactory.getEventBus();
-        PlaceController placeController = clientFactory.getPlaceController();
+        EventBus eventBus = new SimpleEventBus();
+        PlaceController placeController = new PlaceController(eventBus);
 
         // Start ActivityManager for the main widget with our ActivityMapper
-        ActivityMapper activityMapper = new AppActivityMapper(clientFactory);
+        ActivityMapper activityMapper = new AppActivityMapper();
         ActivityManager activityManager = new ActivityManager(activityMapper, eventBus);
         activityManager.setDisplay(appWidget);
 

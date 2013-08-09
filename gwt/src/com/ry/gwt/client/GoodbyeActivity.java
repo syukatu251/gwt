@@ -2,19 +2,13 @@ package com.ry.gwt.client;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
-public class GoodbyeActivity extends AbstractActivity implements GoodbyeView.Presenter {
-	// Used to obtain views, eventBus, placeController
-    // Alternatively, could be injected via GIN
-    private ClientFactory clientFactory;
-    // Name that will be appended to "Hello,"
+public class GoodbyeActivity extends AbstractActivity {
     private String name;
 
-    public GoodbyeActivity(GoodbyePlace place, ClientFactory clientFactory) {
+    public GoodbyeActivity(GoodbyePlace place) {
         this.name = place.getGoodbyeName();
-        this.clientFactory = clientFactory;
     }
 
     /**
@@ -22,24 +16,8 @@ public class GoodbyeActivity extends AbstractActivity implements GoodbyeView.Pre
      */
     @Override
     public void start(AcceptsOneWidget containerWidget, EventBus eventBus) {
-    	GoodbyeView goodbyeView = clientFactory.getGoodbyeView();
+    	GoodbyeViewImpl goodbyeView = new GoodbyeViewImpl();
     	goodbyeView.setName(name);
-    	goodbyeView.setPresenter(this);
         containerWidget.setWidget(goodbyeView.asWidget());
-    }
-
-    /**
-     * Ask user before stopping this activity
-     */
-    @Override
-    public String mayStop() {
-        return "Please hold on. This activity is stopping.";
-    }
-
-    /**
-     * Navigate to a new Place in the browser
-     */
-    public void goTo(Place place) {
-        clientFactory.getPlaceController().goTo(place);
     }
 }
